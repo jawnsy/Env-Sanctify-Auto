@@ -11,18 +11,75 @@ use Carp ();
 
 use base 'Env::Sanctify';
 
-=head1 NAME
-
-Env::Sanctify::Auto - Perl module that cleans up %ENV
-
-=head1 VERSION
-
-Version 1.001 ($Id$)
-
-=cut
 
 our $VERSION = '1.001';
 $VERSION = eval $VERSION;
+
+
+sub new {
+  my ($class, $opts) = @_;
+
+  Carp::croak('You must call this as a class method') if ref($class);
+
+  Carp::croak('Options must be given as a hash reference')
+    if (defined $opts && ref($opts) ne 'HASH');
+
+  my $path;
+  if ($opts->{path}) {
+    $path = $opts->{path};
+  }
+  else {
+    $path = _secure_path();
+  }
+
+  # Construct the Env::Sanctify (superclass) base
+  my $self = Env::Sanctify->sanctify(
+    env => {
+      PATH => $path,
+    },
+    sanctify => [
+      'CDPATH', # cd search path
+      'IFS', # Internal field separator
+      'ENV',
+      'BASH_ENV',
+    ]
+  );
+
+  # Re-bless this into our package
+  return bless($self, $class);
+}
+*sanctify = *new;
+
+# Private utility functions
+sub _secure_path {
+  # Return a PATH specific to the platform we're running on
+  if ($^O eq 'MSWin32') {
+    return '%SystemRoot%\system32;%SystemRoot%;%SystemRoot%\System32\Wbem';
+  }
+
+  # Assume everything else is Unix-like
+  return '/usr/bin:/usr/bin/local';
+}
+
+
+1;
+
+__END__
+=pod
+
+=head1 NAME
+
+Env::Sanctify::Auto
+
+=head1 VERSION
+
+version 1.002
+
+=head1 SYNOPSIS
+
+  my $env = Env::Sanctify::Auto->new();
+  # do some stuff, fork some processes, etc.
+  $env->restore; # everything is back to normal.
 
 =head1 DESCRIPTION
 
@@ -46,11 +103,13 @@ This simple module subclasses B<Env::Sanctify> to take care of this for you.
 Among other things, this means you get the nice bonus of lexically scoped
 environments (see L<Env::Sanctify> for details).
 
-=head1 SYNOPSIS
+=head1 NAME
 
-  my $env = Env::Sanctify::Auto->new();
-  # do some stuff, fork some processes, etc.
-  $env->restore; # everything is back to normal.
+Env::Sanctify::Auto - Perl module that cleans up %ENV
+
+=head1 VERSION
+
+Version 1.001 ($Id$)
 
 =head1 COMPATIBILITY
 
@@ -124,53 +183,6 @@ behaviour by passing the 'path' option:
   my $env = Env::Sanctify::Auto->new({
     path => '/usr/local/bin:/usr/bin'
   });
-
-=cut
-
-sub new {
-  my ($class, $opts) = @_;
-
-  Carp::croak('You must call this as a class method') if ref($class);
-
-  Carp::croak('Options must be given as a hash reference')
-    if (defined $opts && ref($opts) ne 'HASH');
-
-  my $path;
-  if ($opts->{path}) {
-    $path = $opts->{path};
-  }
-  else {
-    $path = _secure_path();
-  }
-
-  # Construct the Env::Sanctify (superclass) base
-  my $self = Env::Sanctify->sanctify(
-    env => {
-      PATH => $path,
-    },
-    sanctify => [
-      'CDPATH', # cd search path
-      'IFS', # Internal field separator
-      'ENV',
-      'BASH_ENV',
-    ]
-  );
-
-  # Re-bless this into our package
-  return bless($self, $class);
-}
-*sanctify = *new;
-
-# Private utility functions
-sub _secure_path {
-  # Return a PATH specific to the platform we're running on
-  if ($^O eq 'MSWin32') {
-    return '%SystemRoot%\system32;%SystemRoot%;%SystemRoot%\System32\Wbem';
-  }
-
-  # Assume everything else is Unix-like
-  return '/usr/bin:/usr/bin/local';
-}
 
 =head1 AUTHOR
 
@@ -313,6 +325,25 @@ on any theory of liability, whether in contract, strict liability or tort
 (including negligence or otherwise) arising in any way out of the use of
 this software, even if advised of the possibility of such damage.
 
+=head1 BUGS
+
+Please report any bugs or feature requests on the bugtracker website
+http://rt.cpan.org/NoAuth/Bugs.html?Dist=Env-Sanctify-Auto
+
+When submitting a bug or request, please include a test-file or a
+patch to an existing test-file that illustrates the bug or desired
+feature.
+
+=head1 AUTHOR
+
+Jonathan Yu <jawnsy@cpan.org>
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is copyright (c) 2011 by Jonathan Yu <jawnsy@cpan.org>.
+
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
+
 =cut
 
-1;
