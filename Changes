@@ -1,39 +1,52 @@
-1.002 - XXXX - Jonathan Yu <jawnsy@cpan.org>
+{{$NEXT}}
 
-  + Changed my mail address to jawnsy@cpan.org
-  + Fixed POD
-  + Update MANIFEST.SKIP according to new defaults provided by
-    ExtUtils::Manifest
-  + Remove pass-through Build.PL
+          Migrate package to Dist::Zilla
 
-1.001 - 17 Aug 2009 - Jonathan Yu <frequency@cpan.org>
+          Changed my mail address to jawnsy@cpan.org
 
-  + Use a simple string version, per David Golden's article:
-    http://www.dagolden.com/index.php/369/version-numbers-should-be-boring/
-  + No longer use Perl::Critic to test
-  + Resequenced test files
+          Fixed POD
 
-1.0.2 - 15 Jun 2009 - Jonathan Yu <frequency@cpan.org>
+          Update MANIFEST.SKIP according to new defaults provided by
+          ExtUtils::Manifest
 
-  + Fix description
-  + Overhaul test scripts, remove author tests from
-    Recommends (Alias' journal #5375)
-  + No longer test Perl::Critic during AUTOMATED_TESTING,
-    only RELEASE_TESTING. Thanks to Elliot Shank for the
-    discussion in a private mail.
-  + Require Internet (HAS_INTERNET) to do the signature
-    test, since it tries to download the key from a keyserver
-  + Removed a file carried over from Test::DistManifest,
-    which I copied the base structure from (CIRCULAR.SKIP)
-    and updated MANIFEST accordingly
+          Remove pass-through Build.PL
 
-1.0.1 - 15 Jun 2009 - Jonathan Yu <frequency@cpan.org>
+1.001     2009-08-17
 
-  + Add test coverage information
-  + Fix Test::DistManifest test script so that it
-    doesn't depend on it
-  + Updated perlcriticrc
+          Use a simple string version, per David Golden's article:
+          http://www.dagolden.com/index.php/369/version-numbers-should-be-boring/
 
-1.0 - 14 Jun 2009 - Jonathan Yu <frequency@cpan.org>
+          No longer use Perl::Critic to test
 
-  + Initial release
+          Resequenced test files
+
+1.0.2     2009-06-15
+
+          Fix description
+
+          Overhaul test scripts, remove author tests from Recommends
+          (Alias' journal #5375)
+
+          No longer test Perl::Critic during AUTOMATED_TESTING, only
+          RELEASE_TESTING. Thanks to Elliot Shank for the discussion
+          in a private mail.
+
+          Require Internet (HAS_INTERNET) to do the signature test,
+          since it tries to download the key from a keyserver
+
+          Removed a file carried over from Test::DistManifest, which
+          I copied the base structure from (CIRCULAR.SKIP) and updated
+          MANIFEST accordingly
+
+1.0.1     2009-06-15
+
+          Add test coverage information
+
+          Fix Test::DistManifest test script so that it doesn't depend
+          on it
+
+          Updated perlcriticrc
+
+1.0       2009-06-14
+
+          Initial release

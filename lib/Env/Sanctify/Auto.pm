@@ -1,28 +1,11 @@
-# Env::Sanctify::Auto
-#  Automatically cleans up your environment to prevent security issues.
-#
-# $Id$
-
 package Env::Sanctify::Auto;
+# ABSTRACT: Perl module that cleans up %ENV
 
 use strict;
 use warnings;
 use Carp ();
 
 use base 'Env::Sanctify';
-
-=head1 NAME
-
-Env::Sanctify::Auto - Perl module that cleans up %ENV
-
-=head1 VERSION
-
-Version 1.001 ($Id$)
-
-=cut
-
-our $VERSION = '1.001';
-$VERSION = eval $VERSION;
 
 =head1 DESCRIPTION
 
@@ -51,17 +34,6 @@ environments (see L<Env::Sanctify> for details).
   my $env = Env::Sanctify::Auto->new();
   # do some stuff, fork some processes, etc.
   $env->restore; # everything is back to normal.
-
-=head1 COMPATIBILITY
-
-This module was tested under Perl 5.10.0, using Debian Linux. However, because
-it's Pure Perl and doesn't do anything too obscure, it should be compatible
-with any version of Perl that supports its prerequisite modules.
-
-It is untested on Win32 and unlikely to work for the time being.
-
-If you encounter any problems on a different version or architecture, please
-contact the maintainer.
 
 =head1 ENVIRONMENT VARIABLES
 
@@ -101,11 +73,9 @@ is executed instead of '/bin/more' as expected.
 B<ENV> and B<BASH_ENV> list files that are executed whenever a new shell is
 started, which includes whenever a shell script (.sh) is run.
 
-=head1 METHODS
+=method new
 
-=head2 new
-
-=head2 sanctify
+=method sanctify
 
   Env::Sanctify::Auto->new($opts)
   Env::Sanctify::Auto->sanctify($opts)
@@ -172,14 +142,6 @@ sub _secure_path {
   return '/usr/bin:/usr/bin/local';
 }
 
-=head1 AUTHOR
-
-Jonathan Yu E<lt>jawnsy@cpan.orgE<gt>
-
-=head2 CONTRIBUTORS
-
-Your name here ;-)
-
 =head1 ACKNOWLEDGEMENTS
 
 =over
@@ -188,59 +150,6 @@ Your name here ;-)
 making L<Env::Sanctify>, a pretty neat module that inspired this one.
 
 =back
-
-=head1 SUPPORT
-
-You can find documentation for this module with the perldoc command.
-
-    perldoc Env::Sanctify::Auto
-
-You can also look for information at:
-
-=over
-
-=item * AnnoCPAN: Annotated CPAN documentation
-
-L<http://annocpan.org/dist/Env-Sanctify-Auto>
-
-=item * CPAN Ratings
-
-L<http://cpanratings.perl.org/d/Env-Sanctify-Auto>
-
-=item * Search CPAN
-
-L<http://search.cpan.org/dist/Env-Sanctify-Auto>
-
-=item * CPAN Request Tracker
-
-L<http://rt.cpan.org/NoAuth/Bugs.html?Dist=Env-Sanctify-Auto>
-
-=item * CPAN Testing Service (Kwalitee Tests)
-
-L<http://cpants.perl.org/dist/overview/Env-Sanctify-Auto>
-
-=back
-
-=head1 REPOSITORY
-
-You can access the most recent development version of this module at:
-
-L<http://svn.ali.as/cpan/trunk/Env-Sanctify-Auto>
-
-If you are a CPAN developer and would like to make modifications to the
-code base, please contact Adam Kennedy E<lt>adamk@cpan.orgE<gt>, the
-repository administrator. I only ask that you contact me first to discuss
-the changes you wish to make to the distribution.
-
-=head1 FEEDBACK
-
-Please send relevant comments, rotten tomatoes and suggestions directly to
-the maintainer noted above.
-
-If you have a bug report or feature request, please file them on the CPAN
-Request Tracker at L<http://rt.cpan.org>. If you are able to submit your
-bug report in the form of failing unit tests, you are B<strongly> encouraged
-to do so.
 
 =head1 SEE ALSO
 
@@ -252,12 +161,6 @@ why IFS, CDPATH, ENV and BASH_ENV are considered dangerous
 L<perlsec>, a document explaining security considerations for Perl programs.
 
 =head1 CAVEATS
-
-=head2 KNOWN BUGS
-
-There are no known bugs as of this release.
-
-=head2 LIMITATIONS
 
 =over
 
@@ -280,38 +183,6 @@ is currently nothing here to deal with that. If you have a OpenVMS machine
 or know how they work, feel free to send me an e-mail or patch.
 
 =back
-
-=head1 QUALITY ASSURANCE METRICS
-
-=head2 TEST COVERAGE
-
-  ------------------------- ------ ------ ------ ------ ------ ------
-  File                      stmt   bran   cond    sub    pod   total
-  ------------------------- ------ ------ ------ ------ ------ ------
-  Env/Sanctify/Auto.pm      100.0  100.0  100.0  100.0  100.0  100.0
-
-=head1 LICENSE
-
-Copyright (C) 2009 by Jonathan Yu <jawnsy@cpan.org>
-
-This package is distributed under the same terms as Perl itself. Please
-see the LICENSE file included in this distribution for full details of
-these terms.
-
-=head1 DISCLAIMER OF WARRANTY
-
-This software is provided by the copyright holders and contributors "AS IS"
-and ANY EXPRESS OR IMPLIED WARRANTIES, including, but not limited to, the
-IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
-ARE DISCLAIMED.
-
-In no event shall the copyright owner or contributors be liable for any
-direct, indirect, incidental, special, exemplary or consequential damages
-(including, but not limited to, procurement of substitute goods or services;
-loss of use, data or profits; or business interruption) however caused and
-on any theory of liability, whether in contract, strict liability or tort
-(including negligence or otherwise) arising in any way out of the use of
-this software, even if advised of the possibility of such damage.
 
 =cut
 

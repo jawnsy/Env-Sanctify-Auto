@@ -1,9 +1,6 @@
 #!/usr/bin/perl -T
 
-# t/02core.t
-#  Tests core functionality
-#
-# $Id$
+# Tests core functionality
 
 use strict;
 use warnings;

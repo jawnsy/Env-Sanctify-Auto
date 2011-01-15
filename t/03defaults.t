@@ -1,9 +1,6 @@
 #!/usr/bin/perl -T
 
-# t/03defaults.t
-#  Tests that defaults are set properly per operating system
-#
-# $Id$
+# Tests that defaults are set properly per operating system
 
 use strict;
 use warnings;
